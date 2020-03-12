@@ -8,7 +8,7 @@
     v-bind="attrs"
     v-model="newValue"
     v-on="onEvents"
-  ></vue-editor>
+  />
 </template>
 
 <script>
