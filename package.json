@@ -1,10 +1,12 @@
 {
   "name": "vue-ele-form-quill-editor",
   "description": "vue-ele-form 的富文本编辑器",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "private": false,
   "scripts": {
+    "build": "vue-cli-service build",
+    "build:lib": "vue-cli-service build --target lib --name vue-ele-form-quill-editor --dest ./dist/ ./lib/index.js",
     "serve": "vue-cli-service serve",
     "lint": "vue-cli-service lint"
   },
@@ -12,7 +14,8 @@
     "type": "git",
     "url": "https://github.com/dream2023/vue-ele-form-quill-editor"
   },
-  "main": "lib/index.js",
+  "main": "dist/vue-ele-form-quill-editor.common.js",
+  "browser": "dist/vue-ele-form-quill-editor.umd.min.js",
   "homepage": "https://github.com/dream2023/vue-ele-form-quill-editor",
   "keywords": [
     "vue-ele-form",
@@ -22,7 +25,7 @@
   ],
   "dependencies": {
     "bc-quill-image-resize-module": "^3.0.0",
-    "vue2-editor": "^2.9.1"
+    "vue2-editor": "^2.10.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.9.0",
@@ -31,12 +34,12 @@
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.1",
     "core-js": "^2.6.5",
-    "element-ui": "^2.10.1",
+    "element-ui": "^2.13.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "lint-staged": "^8.1.5",
     "vue": "^2.6.10",
-    "vue-ele-form": "^0.1.5",
+    "vue-ele-form": "^0.8.20",
     "vue-template-compiler": "^2.6.10"
   },
   "gitHooks": {

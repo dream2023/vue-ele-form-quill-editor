@@ -23,6 +23,7 @@ import EleForm from 'vue-ele-form'
 import EleFormQuillEditor from 'vue-ele-form-quill-editor'
 // 注册 vue-ele-form
 Vue.use(EleForm, {
+  // 全局设置
   // 可以为编辑器配置全局属性, 每个实例都共享这个属性
   'quill-editor': {
     // 比如设置上传 action 后, 所有的 quill-editor 编辑器上传图片都会采用这个属性
@@ -35,6 +36,7 @@ Vue.component('quill-editor', EleFormQuillEditor)
 ```
 
 ```js
+// 局部设置
 formDesc: {
   xxx: {
     label: 'xxx',
@@ -48,13 +50,59 @@ formDesc: {
       data: {token: 'xxx'},
       // 对响应结果进一步处理
       responseFn (response, file) {
-        return 'https://xxx.com/upload/images' + response // 这里返回上传后的url即可
+        return 'https://xxx.com/upload/images' + response.url // 这里返回上传后的url即可
       },
       // 编辑器相关属性
       placeholder: '请输入...'
     }
   }
 }
+```
+
+## 示例
+
+```html
+<template>
+  <ele-form
+    v-model="formData"
+    :form-desc="formDesc"
+    :request-fn="handleRequest"
+    :span="22"
+    @request-success="handleSuccess"
+  />
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      formData: {},
+      formDesc: {
+        content: {
+          label: '文章内容',
+          type: 'quill-editor',
+          attrs: {
+            action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+            responseFn (response, file) {
+              // 因为是 mock 地址, 所以, 总是返回同一张图片的URL, 正常使用的时候不会
+              return response.url
+            }
+          }
+        }
+      }
+    }
+  },
+  methods: {
+    handleRequest (data) {
+      console.log(data)
+      return Promise.resolve()
+    },
+    handleSuccess () {
+      this.$message.success('提交成功')
+    }
+  }
+}
+</script>
 ```
 
 ## 上传图片说明

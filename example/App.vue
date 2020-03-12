@@ -25,10 +25,10 @@ export default {
           label: '文章内容',
           type: 'quill-editor',
           attrs: {
-            action: 'https://jsonplaceholder.typicode.com/posts',
+            action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
             responseFn (response, file) {
-              return 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg'
-              // return file.url
+              // 因为是 mock 地址, 总是返回同一张图片URL
+              return response.url
             }
           }
         }

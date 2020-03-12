@@ -2,7 +2,7 @@
   <vue-editor
     :class="desc.class"
     :style="desc.style"
-    @imageAdded="handleImageAdded"
+    @image-added="handleImageAdded"
     class="ele-form-rich-text"
     useCustomImageHandler
     v-bind="attrs"
@@ -14,8 +14,7 @@
 <script>
 import { VueEditor, Quill } from 'vue2-editor'
 import ImageResize from 'bc-quill-image-resize-module'
-import uploadMixin from 'vue-ele-form/lib/mixins/uploadMixin'
-import formMixin from 'vue-ele-form/lib/mixins/formMixin'
+import { uploadMixin, formMixin } from 'vue-ele-form'
 Quill.register('modules/imageResize', ImageResize)
 
 export default {
