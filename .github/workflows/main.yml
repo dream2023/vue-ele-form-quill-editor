@@ -7,6 +7,7 @@ on:
     paths:
       - lib/**
       - example/**
+      - vue.config.js
 
 jobs:
   build-deploy:
