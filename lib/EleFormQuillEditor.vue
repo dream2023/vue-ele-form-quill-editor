@@ -14,18 +14,20 @@
 <script>
 import { VueEditor, Quill } from 'vue2-editor'
 import ImageResize from 'bc-quill-image-resize-module'
-import { uploadMixin, formMixin } from 'vue-ele-form'
+import uploadMixin from 'vue-ele-form/lib/mixins/uploadMixin'
+import formMixin from 'vue-ele-form/lib/mixins/formMixin'
 Quill.register('modules/imageResize', ImageResize)
 
 export default {
   name: 'quill-editor',
-  mixins: [formMixin, uploadMixin],
+  mixins: [uploadMixin, formMixin],
   components: {
     VueEditor
   },
   data () {
     return {
       defaultAttrs: {
+        name: 'file',
         editorToolbar: [
           ['bold', 'italic', 'underline'], // toggled buttons
           ['image', 'link'],
