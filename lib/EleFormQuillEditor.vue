@@ -12,33 +12,33 @@
 </template>
 
 <script>
-import { VueEditor, Quill } from 'vue2-editor'
-import ImageResize from 'bc-quill-image-resize-module'
-import uploadMixin from 'vue-ele-form/lib/mixins/uploadMixin'
-import formMixin from 'vue-ele-form/lib/mixins/formMixin'
-Quill.register('modules/imageResize', ImageResize)
+import { VueEditor, Quill } from "vue2-editor";
+import ImageResize from "bc-quill-image-resize-module";
+import { uploadMixin, formMixin } from "vue-ele-form";
+import { debounce } from "throttle-debounce";
+Quill.register("modules/imageResize", ImageResize);
 
 export default {
-  name: 'quill-editor',
+  name: "quill-editor",
   mixins: [uploadMixin, formMixin],
   components: {
     VueEditor
   },
-  data () {
+  data() {
     return {
       defaultAttrs: {
-        name: 'file',
+        name: "file",
         editorToolbar: [
-          ['bold', 'italic', 'underline'], // toggled buttons
-          ['image', 'link'],
-          [{ 'size': ['small', true, 'large', 'huge'] }], // custom dropdown
-          [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-          [{ 'align': [] }],
-          [{ 'color': [] }, { 'background': [] }], // dropdown with defaults from theme
-          [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-          [{ 'indent': '-1' }, { 'indent': '+1' }], // outdent/indent
-          ['blockquote'],
-          ['clean']
+          ["bold", "italic", "underline"], // toggled buttons
+          ["image", "link"],
+          [{ size: ["small", true, "large", "huge"] }], // custom dropdown
+          [{ header: [1, 2, 3, 4, 5, 6, false] }],
+          [{ align: [] }],
+          [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+          [{ list: "ordered" }, { list: "bullet" }],
+          [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
+          ["blockquote"],
+          ["clean"]
         ],
         editorOptions: {
           modules: {
@@ -46,18 +46,26 @@ export default {
           }
         }
       }
-    }
+    };
   },
   methods: {
+    handleChange(val) {
+      if (!this.emitData) {
+        this.emitData = debounce(400, value => {
+          this.$emit("input", value);
+        });
+      }
+      this.emitData(val);
+    },
     // 上传图片
-    handleImageAdded (file, Editor, cursorLocation, resetUploader) {
-      this.handleImageUpload(file, (response) => {
-        Editor.insertEmbed(cursorLocation, 'image', response)
-        resetUploader()
-      })
+    handleImageAdded(file, Editor, cursorLocation, resetUploader) {
+      this.handleImageUpload(file, response => {
+        Editor.insertEmbed(cursorLocation, "image", response);
+        resetUploader();
+      });
     }
   }
-}
+};
 </script>
 
 <style lang="css">
